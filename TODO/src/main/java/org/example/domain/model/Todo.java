@@ -26,4 +26,12 @@ public class Todo {
     public boolean isDone() {
         return done;
     }
+
+    public void setDone() {
+        this.done = true;
+    }
+
+    public void setNotDone() {
+        this.done = false;
+    }
 }

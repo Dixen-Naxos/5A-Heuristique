@@ -20,4 +20,13 @@ public class TodoList {
     public void removeTodo(String todoName) {
         todos.removeIf(todo -> todo.getName().equals(todoName));
     }
+
+    public Todo getTodoByName(String name) {
+        for (Todo todo : todos) {
+            if (todo.getName().equals(name)) {
+                return todo;
+            }
+        }
+        return null;
+    }
 }

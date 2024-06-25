@@ -1,6 +1,8 @@
 package org.example.entrypoint;
 
+import org.example.domain.model.TodoList;
 import org.example.domain.service.TodoService;
+import org.example.outputpoint.OutputFormater;
 
 public class Main {
 
@@ -33,7 +35,7 @@ public class Main {
     }
 
     private static void list() {
-
+        TodoList todoList = todoService.listTodo();
     }
 
     private static void add(String arg) {

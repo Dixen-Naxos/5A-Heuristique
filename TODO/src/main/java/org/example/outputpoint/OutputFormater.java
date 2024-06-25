@@ -15,4 +15,8 @@ public class OutputFormater {
     void outputNotDoneList(TodoList notDoneList) {
 
     }
+
+    void outputEnd() {
+        System.out.println("done.");
+    }
 }

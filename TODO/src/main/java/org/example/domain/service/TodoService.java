@@ -30,33 +30,29 @@ public class TodoService {
         writer.writeAll(todos);
     }
 
-    public void listTodo() {
-        TodoList todos = reader.getAll();
-
-        writer.writeAll(todos);
+    public TodoList listTodo() {
+        return reader.getAll();
     }
 
-    public void listNotDoneTodo() {
+    public TodoList listNotDoneTodo() {
         TodoList todos = reader.getAll();
-
-        writer.writeAll(todos);
+        return todos;
     }
 
-    public void listDoneTodo() {
+    public TodoList listDoneTodo() {
         TodoList todos = reader.getAll();
-
-        writer.writeAll(todos);
+        return todos;
     }
 
     public void setDoneTodo(String todoName) {
         TodoList todos = reader.getAll();
-
+        todos.getTodoByName(todoName).setDone();
         writer.writeAll(todos);
     }
 
     public void setNotDoneTodo(String todoName) {
         TodoList todos = reader.getAll();
-
+        todos.getTodoByName(todoName).setNotDone();
         writer.writeAll(todos);
     }
 
