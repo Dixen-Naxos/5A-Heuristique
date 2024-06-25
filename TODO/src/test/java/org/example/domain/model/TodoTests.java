@@ -2,7 +2,7 @@ package org.example.domain.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +11,7 @@ class TodoTests {
     @Test
     void testConstructorAndGetterMethods() {
         String expectedName = "Test Task";
-        LocalDate expectedCreationDate = LocalDate.now();
+        LocalDateTime expectedCreationDate = LocalDateTime.now();
         boolean expectedDone = false;
 
         Todo todo = new Todo(expectedName, expectedCreationDate, expectedDone);

@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CSVReader implements DataReader {
 
@@ -28,13 +29,13 @@ public class CSVReader implements DataReader {
                 }
 
                 String name = parts[0];
-                LocalDate creationDate = LocalDate.parse(parts[1]);
+                LocalDateTime creationDate = LocalDateTime.parse(parts[1]);
                 boolean done = Boolean.parseBoolean(parts[2]);
 
                 todos.addTodo(new Todo(name, creationDate, done));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return todos;
         }
         return todos;
     }
@@ -50,7 +51,7 @@ public class CSVReader implements DataReader {
                 }
 
                 String name = parts[0];
-                LocalDate creationDate = LocalDate.parse(parts[1]);
+                LocalDateTime creationDate = LocalDateTime.parse(parts[1]);
                 boolean done = Boolean.parseBoolean(parts[2]);
 
                 if (done) {
@@ -58,7 +59,7 @@ public class CSVReader implements DataReader {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return todos;
         }
         return todos;
     }
@@ -75,7 +76,7 @@ public class CSVReader implements DataReader {
                 }
 
                 String name = parts[0];
-                LocalDate creationDate = LocalDate.parse(parts[1]);
+                LocalDateTime creationDate = LocalDateTime.parse(parts[1]);
                 boolean done = Boolean.parseBoolean(parts[2]);
 
                 if (!done) {
@@ -83,7 +84,7 @@ public class CSVReader implements DataReader {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            return todos;
         }
         return todos;
     }

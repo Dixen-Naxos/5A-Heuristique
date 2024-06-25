@@ -1,14 +1,15 @@
 package org.example.domain.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Todo {
 
     String name;
-    LocalDate creationDate;
+    LocalDateTime creationDate;
     boolean done;
 
-    public Todo(String name, LocalDate creationDate, boolean done) {
+    public Todo(String name, LocalDateTime creationDate, boolean done) {
         this.name = name;
         this.creationDate = creationDate;
         this.done = done;
@@ -19,7 +20,7 @@ public class Todo {
         return name;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 

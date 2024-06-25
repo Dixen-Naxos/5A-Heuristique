@@ -1,6 +1,8 @@
 package org.example.domain.model;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Comparator;
 
 public class TodoList {
     private List<Todo> todos;
@@ -28,5 +30,29 @@ public class TodoList {
             }
         }
         return null;
+    }
+
+    public TodoList getAllDone() {
+        TodoList newTodoList = new TodoList();
+        for (Todo todo : todos) {
+            if(todo.isDone()) {
+                newTodoList.addTodo(todo);
+            }
+        }
+        return newTodoList;
+    }
+
+    public TodoList getAllNotDone() {
+        TodoList newTodoList = new TodoList();
+        for (Todo todo : todos) {
+            if(!todo.isDone()) {
+                newTodoList.addTodo(todo);
+            }
+        }
+        return newTodoList;
+    }
+
+    public void sortTodoList() {
+        todos.sort((t1, t2) -> t2.getCreationDate().compareTo(t1.getCreationDate()));
     }
 }

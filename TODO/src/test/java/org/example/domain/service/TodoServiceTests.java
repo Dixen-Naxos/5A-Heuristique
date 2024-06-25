@@ -5,12 +5,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import org.example.domain.model.Todo;
+import org.example.domain.model.TodoList;
 import org.example.domain.port.DataReader;
 import org.example.domain.port.DataWriter;
+import org.example.persistence.adapter.CSVReader;
+import org.example.persistence.adapter.CSVWriter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class TodoServiceTests {
@@ -32,69 +38,75 @@ public class TodoServiceTests {
     @Test
     void testDeleteTodo() {
         String todoName = "Test Task";
-        List<Todo> todos = List.of(new Todo(todoName, LocalDate.now(), false));
-        when(reader.getAll()).thenReturn(todos);
+        TodoList todoList = new TodoList();
+        todoList.addTodo(new Todo(todoName, LocalDateTime.now(), false));
+        when(reader.getAll()).thenReturn(todoList);
 
         todoService.deleteTodo(todoName);
 
-        verify(writer).writeAll(todos); // Assuming deletion doesn't change the list size
+        verify(writer).writeAll(todoList);
     }
 
     @Test
     void testListTodo() {
-        List<Todo> todos = List.of(new Todo("Task 1", LocalDate.now(), false),
-                new Todo("Task 2", LocalDate.now(), true));
 
-        when(reader.getAll()).thenReturn(todos);
+        TodoList todoList = new TodoList();
+        todoList.addTodo(new Todo("Task 1", LocalDateTime.now(), false));
+        todoList.addTodo(new Todo("Task 2", LocalDateTime.now(), true));
+        when(reader.getAll()).thenReturn(todoList);
 
-        todoService.listTodo();
+        TodoList result = todoService.listTodo();
 
-        verify(writer).writeAll(todos);
+        assertEquals(todoList.getTodos().size(), result.getTodos().size());
     }
 
     @Test
     void testListNotDoneTodo() {
-        List<Todo> todos = List.of(new Todo("Task 1", LocalDate.now(), false),
-                new Todo("Task 2", LocalDate.now(), true));
 
-        when(reader.getAll()).thenReturn(todos);
+        TodoList todoList = new TodoList();
+        todoList.addTodo(new Todo("Task 1", LocalDateTime.now(), false));
+        todoList.addTodo(new Todo("Task 2", LocalDateTime.now(), true));
+        when(reader.getAll()).thenReturn(todoList);
 
-        todoService.listNotDoneTodo();
+        TodoList result = todoService.listNotDoneTodo();
 
-        verify(writer).writeAll(List.of(todos.get(0))); // Only the first task is not done
+        assertEquals(1, result.getTodos().size());
     }
 
     @Test
     void testListDoneTodo() {
-        List<Todo> todos = List.of(new Todo("Task 1", LocalDate.now(), false),
-                new Todo("Task 2", LocalDate.now(), true));
 
-        when(reader.getAll()).thenReturn(todos);
+        TodoList todoList = new TodoList();
+        todoList.addTodo(new Todo("Task 1", LocalDateTime.now(), false));
+        todoList.addTodo(new Todo("Task 2", LocalDateTime.now(), true));
+        when(reader.getAll()).thenReturn(todoList);
 
-        todoService.listDoneTodo();
+        TodoList result = todoService.listDoneTodo();
 
-        verify(writer).writeAll(List.of(todos.get(1))); // Only the second task is done
+        assertEquals(1, result.getTodos().size());
     }
 
     @Test
     void testSetDoneTodo() {
         String todoName = "Test Task";
-        List<Todo> todos = List.of(new Todo(todoName, LocalDate.now(), false));
-        when(reader.getAll()).thenReturn(todos);
+        TodoList todoList = new TodoList();
+        todoList.addTodo(new Todo(todoName, LocalDateTime.now(), false));
+        when(reader.getAll()).thenReturn(todoList);
 
         todoService.setDoneTodo(todoName);
 
-        verify(writer).writeAll(todos); // Assuming setting done doesn't change the list
+        verify(writer).writeAll(todoList);
     }
 
     @Test
     void testSetNotDoneTodo() {
         String todoName = "Test Task";
-        List<Todo> todos = List.of(new Todo(todoName, LocalDate.now(), false));
-        when(reader.getAll()).thenReturn(todos);
+        TodoList todoList = new TodoList();
+        todoList.addTodo(new Todo(todoName, LocalDateTime.now(), false));
+        when(reader.getAll()).thenReturn(todoList);
 
         todoService.setNotDoneTodo(todoName);
 
-        verify(writer).writeAll(todos); // Assuming setting not done doesn't change the list
+        verify(writer).writeAll(todoList);
     }
 }
