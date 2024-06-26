@@ -20,30 +20,40 @@ public class Main {
 
 
         String commandName = args[0];
-        String argument = args[1];
-        CommandEnum command = CommandEnum.valueOf(commandName);
-
-        switch (command) {
-            case LIST:
-                list();
-                break;
-            case ADD:
-                add(argument);
-                break;
-            case DELETE:
-                delete(argument);
-                break;
-            case REPORT:
-                ReportEnum reportType = ReportEnum.valueOf(argument);
-                report(reportType);
-                break;
-            case DONE:
-                done(argument);
-                break;
-            case NOTDONE:
-                notdone(argument);
-                break;
+        String argument = "";
+        if (args.length > 1) {
+            argument = args[1];
         }
+
+        try {
+
+            CommandEnum command = CommandEnum.valueOf(commandName.toUpperCase());
+            switch (command) {
+                case LIST:
+                    list();
+                    break;
+                case ADD:
+                    add(argument);
+                    break;
+                case DELETE:
+                    delete(argument);
+                    break;
+                case REPORT:
+                    ReportEnum reportType = ReportEnum.valueOf(argument.toUpperCase());
+                    report(reportType);
+                    break;
+                case DONE:
+                    done(argument);
+                    break;
+                case NOTDONE:
+                    notdone(argument);
+                    break;
+            }
+
+        } catch (IllegalArgumentException e) {
+            OutputConsole.outputError("Invalid command '" + commandName + "'");
+        }
+
     }
 
     private static void list() {
@@ -85,7 +95,7 @@ public class Main {
     }
 
     private static void notdone(String name) {
-        todoService.setDoneTodo(name);
+        todoService.setNotDoneTodo(name);
         OutputConsole.outputEnd();
     }
 }

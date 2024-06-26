@@ -16,7 +16,7 @@ public class OutputFile {
             writer.write("# Report\n");
             writer.write("## Task done:\n");
 
-            for (int i = 1; i < doneList.getTodos().size(); i++) {
+            for (int i = 0; i < doneList.getTodos().size(); i++) {
                 Todo todo = doneList.getTodos().get(i);
                 writer.write("- "+todo.getName()+" ("+todo.getCreationDate().getYear()+"-"+todo.getCreationDate().getMonth()+"-"+ todo.getCreationDate().getDayOfMonth()+")\n");
 
@@ -33,7 +33,7 @@ public class OutputFile {
             writer.write("# Report\n");
             writer.write("## Task not done:\n");
 
-            for (int i = 1; i < notDoneList.getTodos().size(); i++) {
+            for (int i = 0; i < notDoneList.getTodos().size(); i++) {
                 Todo todo = notDoneList.getTodos().get(i);
                 writer.write("- "+todo.getName()+" ("+todo.getCreationDate().getYear()+"-"+todo.getCreationDate().getMonth()+"-"+ todo.getCreationDate().getDayOfMonth()+")\n");
 
